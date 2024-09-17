@@ -1,0 +1,130 @@
+.main-card {
+  background-color: #eff3f6;
+  padding-top: 84px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container1 {
+  background-color: white;
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  min-width: 95vw;
+  margin-bottom: 80px;
+}
+
+.rdt_TableCell > div:first-child:has(:not(:not(.download-btn))) {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.log-download {
+  border: none;
+  background-color: transparent;
+  height: 100%;
+  width: 50%;
+}
+
+.logs-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-input {
+  border: 1px solid #9ba5ac;
+  display: flex;
+  height: 40px;
+  width: 180px;
+  position: relative;
+}
+
+.search-btn {
+  border: none;
+  background-color: transparent;
+  min-width: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+
+.search-icon {
+  width: 15%;
+  position: absolute;
+  right: 0px;
+  top: 3px;
+}
+.rdt_Pagination {
+  border: none !important;
+}
+.rdt_TableHeadRow {
+  border: 1px solid #e2e5e8 !important;
+  font-size: 16px !important;
+  color: #111 !important;
+  background-color: #eff3f6 !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  padding: 0px !important;
+  font-weight: 600 !important;
+}
+
+.download-btn {
+  display: flex;
+  gap: 5px;
+}
+@media (min-width: 576px) {
+  .download-btn {
+    display: flex;
+    flex-direction: column;
+  }
+  .log-download {
+    border: none;
+  }
+  .rdt_TableCell > div:first-child:has(:not(:not(.download-btn))) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .rdt_TableCell {
+    padding-left: 0px !important;
+  }
+}
+@media (min-width: 768px) {
+  .download-btn {
+    display: flex;
+    flex-direction: column;
+  }
+  .log-download {
+    border: none;
+  }
+}
+@media (min-width: 1200px) {
+  .download-btn {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+  }
+  .rdt_TableCell > div:first-child:has(:not(:not(.download-btn))) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  .rdt_TableCell {
+    padding-left: 15px !important;
+  }
+}

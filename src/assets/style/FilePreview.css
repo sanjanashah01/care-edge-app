@@ -1,0 +1,155 @@
+.main-card2 {
+  background-color: #eff3f6;
+  padding-top: 84px;
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  width: 100%;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.preview-content {
+  width: 50%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+}
+
+.back-btn {
+  width: 95px;
+  height: 42px;
+  text-decoration: none;
+  color: #1c304c;
+  background-color: #0fdcd2;
+  border-color: #0fdcd2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.secondary-btn {
+  text-decoration: none;
+  color: #fff;
+  background-color: #1c304c;
+  border-color: #1c304c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  transition: all 0.3s ease-in-out;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 14px;
+}
+
+.table-card {
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px #e2e5e8;
+  border: none;
+  padding: 0;
+  margin-bottom: 30px;
+  transition: all 0.5s ease-in-out;
+  --bs-body-color: #686c71;
+  background-color: #fff;
+}
+
+.table-datawrap {
+  padding: 20px 25px;
+  max-height: 700px;
+  height: 100%;
+  overflow-y: scroll;
+}
+.table-responsive {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.preview-file {
+  width: 50%;
+}
+.section-header-title {
+  color: #1c304c;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  margin-bottom: 0.75rem;
+}
+
+.download-card {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.download-details {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.download-btn {
+  border: none;
+  padding: 0%;
+}
+
+.rdt_TableHeadRow {
+  border: 1px solid #e2e5e8 !important;
+  font-size: 16px !important;
+  color: #111 !important;
+  background-color: #eff3f6 !important;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+  padding: 0px !important;
+  font-weight: 600 !important;
+}
+.rdt_TableCol {
+  border: 1px solid #e2e5e8;
+}
+.validation {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.rdt_TableCell {
+  border: 1px solid #e2e5e8;
+}
+
+.pt {
+  margin-bottom: 20px;
+}
+
+.pt-title {
+  color: #1c304c;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.pt-data {
+  color: #0fdcd2;
+  font-size: 16px;
+  font-weight: 600;
+}

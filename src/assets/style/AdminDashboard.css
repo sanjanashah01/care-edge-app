@@ -1,0 +1,137 @@
+.admin-dashboard {
+  width: 100%;
+}
+
+.admin-navbar {
+  display: flex;
+  margin-left: 300px;
+  justify-content: space-between;
+  margin-right: 1rem;
+}
+
+.user-menu {
+  background-color: #1c304c;
+  border-radius: 12px;
+  margin: 5px;
+}
+.search-menu {
+  margin-top: 25px;
+  margin-left: 25px;
+  width: 400px;
+}
+
+.date-filter {
+  width: 400px;
+  margin-top: 25px;
+  margin-left: 25px;
+}
+
+.rs-picker-toggle-wrapper {
+  width: 100% !important;
+  height: 38px !important;
+  border-radius: 8px !important;
+}
+
+.admin-search-btn {
+  border: none;
+  background-color: transparent;
+  min-width: 93%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  border-radius: 8px;
+}
+.admin-search-input {
+  border: 1px solid #9ba5ac;
+  border-radius: 8px;
+  display: flex;
+  height: 40px;
+  width: 580px;
+  position: relative;
+}
+.admin-search-icon {
+  width: 7%;
+  position: absolute;
+  right: 0px;
+  top: 3px;
+}
+
+.admin-main-card {
+  margin: 25px;
+  margin-left: 325px;
+  background: #f0f0f0;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.admin-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-card {
+  background-color: white;
+  height: 60px;
+  width: 35%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.filter-card2 {
+  background-color: white;
+  height: 60px;
+  width: 35%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-card-data {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+.pie-card {
+  height: 100%;
+  width: 100%;
+}
+.pie-data {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding-right: 20px;
+}
+.pie-data-label {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pie-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-left: 20px;
+}
+.rdp-addon {
+  margin-left: 1px !important;
+}
+.clear-btn {
+  background-color: transparent !important;
+  color: #1c304c !important;
+  border: 1px solid #9ba5ac !important;
+}
+.rs-picker-input-group {
+  border: 1px solid #9ba5ac !important;
+  height: 100%;
+}
