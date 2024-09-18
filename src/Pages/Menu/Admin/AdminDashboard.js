@@ -68,11 +68,22 @@ export default function AdminDashboard() {
         }));
         if (pieData[0]) {
           if (pieData[0].name === "Corrections required") {
-            setCorrectionRequired(pieData[0].value);
-            setPublicationReady(pieData[1].value);
+            if(pieData[0])
+              setCorrectionRequired(pieData[0].value);
+            else 
+              setCorrectionRequired(0);
+
+            if(pieData[1]) 
+              setPublicationReady(pieData[1].value);
+            else 
+              setPublicationReady(0);
           } else {
-            setCorrectionRequired(pieData[1].value);
-            setPublicationReady(pieData[0].value);
+            if(pieData[1])
+              setCorrectionRequired(pieData[1].value);
+            else 
+              setCorrectionRequired(0);
+              if(pieData[0]) setPublicationReady(pieData[0].value);
+              else setPublicationReady(0)
           }
         } else setCorrectionRequired(0);
         if (pieData[1]) {

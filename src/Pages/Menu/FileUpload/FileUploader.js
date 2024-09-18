@@ -199,11 +199,11 @@ export default function FileUploader() {
                       <FormGroup className="form-group" check>
                         <Input
                           type="checkbox"
-                          value="CE Rating"
+                          value="CE Ratings"
                           onChange={handleCheckboxChange}
                         />
                         <Label className="form-group-label" check>
-                          CE Rating
+                          CE Ratings
                         </Label>
                       </FormGroup>
                       <FormGroup className="form-group" check>
@@ -233,11 +233,11 @@ export default function FileUploader() {
                       <FormGroup className="form-group" check>
                         <Input
                           type="checkbox"
-                          value="INC First Time"
+                          value="INC - First Time"
                           onChange={handleCheckboxChange}
                         />
                         <Label className="form-group-label" check>
-                          INC First Time
+                          INC - First Time
                         </Label>
                       </FormGroup>
                       <FormGroup className="form-group" check>
