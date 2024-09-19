@@ -24,6 +24,7 @@ export default function FilePreview() {
   const [combinedData, setCombinedData] = useState([]);
   const [fileName, setFileName] = useState(null);
   const [processingTime, setProcessingTime] = useState("");
+  const [limitations, setLimitations] = useState([]);
   useEffect(() => {
     const fetchLatestFile = async () => {
       const createdBy = Cookies.get("authToken");
@@ -33,6 +34,7 @@ export default function FilePreview() {
             `${process.env.REACT_APP_BASE_URL}/files/${id}`
           );
           setFileData(fileDetailsResponse.data);
+          setLimitations(fileDetailsResponse.data.limitations);
           const summaryData = fileDetailsResponse.data.summary;
           const combinedData = summaryData.Section.map((Section, index) => ({
             Section: Section,
@@ -53,6 +55,7 @@ export default function FilePreview() {
           );
           setFileData(response.data[0]);
           const summaryData = response.data[0].summary;
+          setLimitations(response.data[0].limitations);
           const combinedData = summaryData.Section.map((Section, index) => ({
             Section: Section,
             Notes: summaryData.Notes[index],
@@ -106,7 +109,7 @@ export default function FilePreview() {
       name: "Validation",
       cell: (row) => (
         <div className="validation">
-          {row.Notes && row.Notes.length > 0 ? (
+          {(row.Notes && row.Notes.length > 0) || row.Status === "Missing" ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"
@@ -138,7 +141,15 @@ export default function FilePreview() {
     },
     {
       name: "Remarks",
-      cell: (row) => <div style={{ color: "red" }}>{row.Notes}</div>,
+      cell: (row) => (
+        <div style={{ color: "red" }}>
+          {row.Notes.map((note, index) => (
+            <ul key={index}>
+              <li>{note}</li>
+            </ul>
+          ))}
+        </div>
+      ),
       width: "40%",
       wrap: true,
     },
@@ -147,6 +158,29 @@ export default function FilePreview() {
     <React.Fragment>
       <div className="page-content">
         <p className="navbar-2">PR Check Point</p>
+        <p className="warning-navbar">
+          Please re-verify the following sections{" "}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1rem"
+            height="1rem"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill="black"
+              fill-rule="evenodd"
+              d="M10.159 10.72a.75.75 0 1 0 1.06 1.06l3.25-3.25L15 8l-.53-.53l-3.25-3.25a.75.75 0 0 0-1.061 1.06l1.97 1.97H1.75a.75.75 0 1 0 0 1.5h10.379z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <i>
+            {limitations.map((limitation, index) => (
+              <ul className="limits-ul" key={index}>
+                <li>{limitation}</li>
+              </ul>
+            ))}
+          </i>
+        </p>
         <div className="main-card2">
           <div className="preview-content">
             <div className="buttons">
@@ -180,6 +214,7 @@ export default function FilePreview() {
                 Upload another word file
               </Link>
             </div>
+
             <div className="table-card">
               <div className="table-datawrap">
                 <div className="table-responsive">

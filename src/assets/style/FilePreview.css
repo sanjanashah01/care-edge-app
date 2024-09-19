@@ -1,6 +1,6 @@
 .main-card2 {
   background-color: #eff3f6;
-  padding-top: 84px;
+  padding-top: 44px;
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
   width: 100%;
@@ -152,4 +152,16 @@
   color: #0fdcd2;
   font-size: 16px;
   font-weight: 600;
+}
+.warning-navbar {
+  background-color: #f3e828;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.limits-ul{
+  margin: 0rem !important;
+  padding-left: 1rem !important; 
+  height: 25px !important;
 }

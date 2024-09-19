@@ -106,7 +106,17 @@ export default function AdminFilePreview() {
     },
     {
       name: "Remarks",
-      cell: (row) => <div style={{ color: "red" }}>{row.Notes}</div>,
+      cell: (row) => (
+        <div style={{ color: "red" }}>
+          {row.Notes.map((note, index) => (
+            <ul key={index}>
+              <li>
+                {note}
+              </li>
+            </ul>
+          ))}
+        </div>
+      ),
       width: "40%",
       wrap: true,
     },

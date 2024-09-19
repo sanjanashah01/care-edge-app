@@ -4,11 +4,11 @@ import axios from "axios";
 import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
 import ProfileMenu from "../../../components/Common/TopbarDropdown/ProfileMenu";
-// import ExportCSV from "./ExportCSV";
-
+import ExportCSV from "./ExportCSV";
 export default function AdminLogs() {
   const [fileData, setFileData] = useState([]);
   const [filterText, setFilterText] = useState("");
+  const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     const fetchLatestFile = async () => {
@@ -17,6 +17,11 @@ export default function AdminLogs() {
           `${process.env.REACT_APP_BASE_URL}/files/all-files`
         );
         setFileData(response.data);
+
+        const userResponse = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/user`
+        );
+        setUserData(userResponse.data);
       } catch (error) {
         console.error("Error fetching file:", error);
       }
@@ -53,19 +58,31 @@ export default function AdminLogs() {
     }
   };
 
-  
   const columns = [
     {
       name: "No.",
       cell: (row, index) => <div>{index + 1}</div>,
       wrap: true,
-      width: "7%",
+      width: "8%",
+      sortable: true,
     },
     {
       name: <span className="">Date</span>,
       selector: (row) => formatDate(row.timestamp),
       sortable: true,
-      width: "10%",
+      width: "9%",
+      wrap: true,
+    },
+    {
+      name: "User",
+      selector: (row) => {
+        const createdBy = row.createdBy;
+        const userEmail = userData.find((user) => user._id === createdBy);
+        return userEmail ? userEmail.email : "Unknown";
+      },
+      sortable: true,
+      width: "15%",
+      wrap: true,
     },
     {
       name: <span className="">Type of PR Selected </span>,
@@ -82,6 +99,7 @@ export default function AdminLogs() {
       selector: (row) => row.filename,
       sortable: true,
       width: "25%",
+      wrap: true,
     },
     {
       name: <span>Status (Ready for publication/Corrections required)</span>,
@@ -97,7 +115,7 @@ export default function AdminLogs() {
       },
       sortable: true,
       wrap: true,
-      width: "28%",
+      width: "18%",
     },
     {
       name: <span>Actions</span>,
@@ -140,9 +158,10 @@ export default function AdminLogs() {
       ),
       sortable: true,
       wrap: true,
-      width: "15%",
+      width: "10%",
     },
   ];
+
   const getStatus = (item) => {
     if (item.summary && item.summary.Notes) {
       for (let i = 0; i < item.summary.Notes.length; i++) {
@@ -153,14 +172,21 @@ export default function AdminLogs() {
     }
     return "Ready for Publication";
   };
+
   const filteredItems = fileData.filter((item) => {
     const searchTerm = filterText.toLowerCase();
+
+    const createdByUser = userData.find((user) => user._id === item.createdBy);
+    const userEmail = createdByUser
+      ? createdByUser.email.toLowerCase()
+      : "unknown";
+
     return (
-      (item.filename && item.filename.toLowerCase().includes(searchTerm)) ||
       (item.timestamp &&
         formatDate(item.timestamp).toLowerCase().includes(searchTerm)) ||
       (item.selectedTypes &&
         item.selectedTypes.join(" ").toLowerCase().includes(searchTerm)) ||
+      (item.filename && item.filename.toLowerCase().includes(searchTerm)) ||
       (item.summary &&
         item.summary.Notes &&
         item.summary.Notes.some((note) =>
@@ -170,7 +196,8 @@ export default function AdminLogs() {
               value.toLowerCase().includes(searchTerm)
           )
         )) ||
-      (getStatus(item) && getStatus(item).toLowerCase().includes(searchTerm))
+      (getStatus(item) && getStatus(item).toLowerCase().includes(searchTerm)) ||
+      userEmail.includes(searchTerm)
     );
   });
 
@@ -207,12 +234,10 @@ export default function AdminLogs() {
           </div>
         </div>
         <div className="admin-main-card">
-          {/* <div className="admin-card-header">
-            <div>
-              <ExportCSV data={filteredItems} />
-            </div>
-            <div className="filter-card">filter-card</div>
-          </div> */}
+          <div className="admin-card-header">
+            <div></div>
+            <div>{/* <ExportCSV data={filteredItems} /> */}</div>
+          </div>
           <div className="admin-card-data">
             <div
               style={{

@@ -4,7 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
-
+import ExportCSV from "../Admin/ExportCSV";
 export default function Logs() {
   const [fileData, setFileData] = useState([]);
   const [filterText, setFilterText] = useState("");
@@ -222,6 +222,9 @@ export default function Logs() {
                   </svg>
                 </div>
               </div>
+            </div>
+            <div>
+              <ExportCSV data={filteredItems} />
             </div>
             <DataTable columns={columns} data={filteredItems} pagination />
           </div>

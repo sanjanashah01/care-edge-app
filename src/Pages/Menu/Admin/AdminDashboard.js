@@ -68,22 +68,16 @@ export default function AdminDashboard() {
         }));
         if (pieData[0]) {
           if (pieData[0].name === "Corrections required") {
-            if(pieData[0])
-              setCorrectionRequired(pieData[0].value);
-            else 
-              setCorrectionRequired(0);
+            if (pieData[0]) setCorrectionRequired(pieData[0].value);
+            else setCorrectionRequired(0);
 
-            if(pieData[1]) 
-              setPublicationReady(pieData[1].value);
-            else 
-              setPublicationReady(0);
+            if (pieData[1]) setPublicationReady(pieData[1].value);
+            else setPublicationReady(0);
           } else {
-            if(pieData[1])
-              setCorrectionRequired(pieData[1].value);
-            else 
-              setCorrectionRequired(0);
-              if(pieData[0]) setPublicationReady(pieData[0].value);
-              else setPublicationReady(0)
+            if (pieData[1]) setCorrectionRequired(pieData[1].value);
+            else setCorrectionRequired(0);
+            if (pieData[0]) setPublicationReady(pieData[0].value);
+            else setPublicationReady(0);
           }
         } else setCorrectionRequired(0);
         if (pieData[1]) {
@@ -129,88 +123,9 @@ export default function AdminDashboard() {
     fetchFileData();
   }, []);
 
-  //Fetching pr-counts
-  useEffect(() => {
-    const fetchDataByDateRange = async () => {
-      if (!selectedDate) return;
-
-      const [startDate, endDate] = selectedDate;
-
-      try {
-        const fileResponse = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}/files/pr-count`
-        );
-        const data = fileResponse.data;
-        const parseData = (data, startDate, endDate) => {
-          if (startDate && endDate) {
-            let correctionsRequiredCount, publicationReadyCount;
-            if (data["Corrections required"]) {
-              correctionsRequiredCount = data["Corrections required"][
-                "createdAt"
-              ].filter((date) =>
-                moment(date, "DD/MM/YYYY").isBetween(
-                  moment(startDate),
-                  moment(endDate),
-                  undefined,
-                  "[]"
-                )
-              ).length;
-            } else {
-              correctionsRequiredCount = 0;
-            }
-
-            if (data["Ready for Publication"]) {
-              publicationReadyCount = data["Ready for Publication"][
-                "createdAt"
-              ].filter((date) =>
-                moment(date, "DD/MM/YYYY").isBetween(
-                  moment(startDate),
-                  moment(endDate),
-                  undefined,
-                  "[]"
-                )
-              ).length;
-            } else {
-              publicationReadyCount = 0;
-            }
-
-            return { correctionsRequiredCount, publicationReadyCount };
-          } else {
-            const correctionsRequiredCount = data["Corrections required"]
-              ? data["Corrections required"]["createdAt"].length
-              : 0;
-            const publicationReadyCount = data["Ready for Publication"]
-              ? data["Ready for Publication"]["createdAt"].length
-              : 0;
-
-            return { correctionsRequiredCount, publicationReadyCount };
-          }
-        };
-        const { correctionsRequiredCount, publicationReadyCount } = parseData(
-          data,
-          startDate,
-          endDate
-        );
-
-        setCorrectionRequired(correctionsRequiredCount);
-        setPublicationReady(publicationReadyCount);
-        setPieChartData([
-          { name: "Corrections required", value: correctionsRequiredCount },
-          { name: "Ready for Publication", value: publicationReadyCount },
-        ]);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchDataByDateRange();
-  }, [selectedDate]);
-
-  //Updating pieChart if user is selected or not
   const handleDateChange = async (value) => {
     if (value) {
       setSelectedDate(value);
-
       const [startDate, endDate] = value;
 
       if (selectedUser) {
@@ -269,11 +184,10 @@ export default function AdminDashboard() {
             `${process.env.REACT_APP_BASE_URL}/files/pr-count`
           );
           const data = fileResponse.data;
-          console.log(data);
           let correctionsRequiredCount, publicationReadyCount;
-          if (data["Corrections required"]) {
-            correctionsRequiredCount = data["Corrections required"][
-              "createdAt"
+          if (data["correctionsRequired"]) {
+            correctionsRequiredCount = data["correctionsRequired"][
+              "dates"
             ].filter((date) =>
               moment(date, "DD/MM/YYYY").isBetween(
                 startDate,
@@ -285,21 +199,19 @@ export default function AdminDashboard() {
           } else {
             correctionsRequiredCount = 0;
           }
-          if (data["Ready for Publication"]) {
-            publicationReadyCount = data["Ready for Publication"][
-              "createdAt"
-            ].filter((date) =>
-              moment(date, "DD/MM/YYYY").isBetween(
-                startDate,
-                endDate,
-                undefined,
-                "[]"
-              )
+          if (data["readyForPublication"]) {
+            publicationReadyCount = data["readyForPublication"]["dates"].filter(
+              (date) =>
+                moment(date, "DD/MM/YYYY").isBetween(
+                  startDate,
+                  endDate,
+                  undefined,
+                  "[]"
+                )
             ).length;
           } else {
             publicationReadyCount = 0;
           }
-
           setCorrectionRequired(correctionsRequiredCount);
           setPublicationReady(publicationReadyCount);
           setPieChartData([
@@ -328,7 +240,6 @@ export default function AdminDashboard() {
             `${process.env.REACT_APP_BASE_URL}/files/all-files`
           );
           const data = fileResponse.data;
-          console.log(data);
           const userFiles = data.filter((file) => file.createdBy === userId);
           const parseData = (files, startDate, endDate) => {
             const correctionsRequiredCount = files.filter(
@@ -397,10 +308,6 @@ export default function AdminDashboard() {
             { name: "Corrections required", value: correctionsRequiredCount },
             { name: "Ready for Publication", value: publicationReadyCount },
           ]);
-          console.log(
-            { name: "Corrections required", value: correctionsRequiredCount },
-            { name: "Ready for Publication", value: publicationReadyCount }
-          );
           setIsDataLoaded(true);
         } catch (error) {
           console.error("Error fetching files:", error);
@@ -410,8 +317,6 @@ export default function AdminDashboard() {
   };
 
   const handleClearFilter = async () => {
-    setSelectedDate("");
-    setSelectedUser(null);
     try {
       const fileResponse = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/files/all-files`
@@ -429,11 +334,16 @@ export default function AdminDashboard() {
       }));
       if (pieData[0]) {
         if (pieData[0].name === "Corrections required") {
-          setCorrectionRequired(pieData[0].value);
-          setPublicationReady(pieData[1].value);
+          if (pieData[0]) setCorrectionRequired(pieData[0].value);
+          else setCorrectionRequired(0);
+
+          if (pieData[1]) setPublicationReady(pieData[1].value);
+          else setPublicationReady(0);
         } else {
-          setCorrectionRequired(pieData[1].value);
-          setPublicationReady(pieData[0].value);
+          if (pieData[1]) setCorrectionRequired(pieData[1].value);
+          else setCorrectionRequired(0);
+          if (pieData[0]) setPublicationReady(pieData[0].value);
+          else setPublicationReady(0);
         }
       } else setCorrectionRequired(0);
       if (pieData[1]) {
@@ -447,6 +357,8 @@ export default function AdminDashboard() {
       } else setPublicationReady(0);
       setPieChartData(pieData);
       setIsDataLoaded(true);
+      setSelectedDate("");
+      setSelectedUser(null);
     } catch (error) {
       console.error("Error fetching files:", error);
     }
@@ -469,11 +381,13 @@ export default function AdminDashboard() {
             <DateRangePicker
               placeholder="Select Date Range"
               onChange={handleDateChange}
-              value={selectedDate ? [selectedDate[0], selectedDate[1]] : null} // Set value to null when filter is cleared
+              value={selectedDate ? [selectedDate[0], selectedDate[1]] : null}
             />
           </div>
           <div className="date-filter">
-            <Button onClick={handleClearFilter} className="clear-btn">Clear filters</Button>
+            <Button onClick={handleClearFilter} className="clear-btn">
+              Clear filters
+            </Button>
           </div>
           <div className="user-menu">
             <ProfileMenu />
