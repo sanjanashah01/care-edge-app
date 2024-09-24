@@ -5,19 +5,8 @@ import { Link, useParams } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
-// import "@cyntler/react-doc-viewer/dist/index.css";
 
 export default function FilePreview() {
-  // const docs = [
-  //   {
-  //     uri: "https://calibre-ebook.com/downloads/demos/demo.docx",
-  //     // uri: require("D:/Desktop/Cactus/CareEdge/care-edge-app/src/assets/images/demo.docx"),
-  //     fileType: "docx",
-  //     fileName: "demo.docx",
-  //   },
-  // ];
-
   const navigate = useNavigate();
   const { id } = useParams();
   const [fileData, setFileData] = useState([]);
@@ -74,13 +63,11 @@ export default function FilePreview() {
   }, [1]);
 
   const downloadFile = async () => {
-    const fileId = fileData._id;
+    const fileName = fileData.filename + ".docx";
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/files/download/${fileId}`,
-        {
-          responseType: "blob",
-        }
+        `${process.env.REACT_APP_BASE_URL}/files/download/${fileName}`,
+        { responseType: "blob" }
       );
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
@@ -92,6 +79,7 @@ export default function FilePreview() {
       console.error("Error downloading the file", error);
     }
   };
+
   const columns = [
     {
       name: "No.",
