@@ -45,8 +45,11 @@ export default function FileUploader() {
             "Content-Type": "multipart/form-data",
           },
         }
-      );
-      window.location.href = "/file-preview";
+      ).then((response) => {
+        if (response.status === 201) {
+          window.location.href = "/file-preview";
+        }
+      });
     } catch (error) {
       console.error("Error uploading files:", error);
     }

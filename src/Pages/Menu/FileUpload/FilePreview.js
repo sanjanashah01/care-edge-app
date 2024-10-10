@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import PdfViewer from "../../../components/Common/PdfViewer";
 
 export default function FilePreview() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export default function FilePreview() {
   const [fileData, setFileData] = useState([]);
   const [combinedData, setCombinedData] = useState([]);
   const [fileName, setFileName] = useState(null);
+  const [filePath, setFilePath] = useState("");
   const [processingTime, setProcessingTime] = useState("");
   const [limitations, setLimitations] = useState([]);
   useEffect(() => {
@@ -33,6 +35,9 @@ export default function FilePreview() {
           setCombinedData(combinedData);
           setFileName(fileDetailsResponse.data.filename);
           setProcessingTime(fileDetailsResponse.data.pt);
+          // setFilePath(fileDetailsResponse.data.path);
+          setFilePath("http://localhost:4200/Mankind_Pharma_Limited_Press_Release.docx_09-10-2024_15_44_16.docx_2024-10-09 15_44_26.592985.pdf")
+
         } else {
           const response = await axios.get(
             `${process.env.REACT_APP_BASE_URL}/files`,
@@ -53,6 +58,9 @@ export default function FilePreview() {
           setCombinedData(combinedData);
           setFileName(response.data[0].filename);
           setProcessingTime(response.data[0].pt);
+          // setFilePath(response.data[0].path);
+
+          setFilePath("http://localhost:4200/Mankind_Pharma_Limited_Press_Release.docx_09-10-2024_15_44_16.docx_2024-10-09 15_44_26.592985.pdf")
         }
       } catch (error) {
         console.error("Error fetching latest file:", error);
@@ -63,18 +71,24 @@ export default function FilePreview() {
   }, [1]);
 
   const downloadFile = async () => {
-    const fileName = fileData.filename + ".docx";
+    const fileName = fileData.filename;
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/files/download/${fileName}`,
         { responseType: "blob" }
       );
+
       const url = window.URL.createObjectURL(new Blob([response.data]));
+
       const link = document.createElement("a");
       link.href = url;
       link.setAttribute("download", fileName);
+
       document.body.appendChild(link);
       link.click();
+
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error("Error downloading the file", error);
     }
@@ -249,11 +263,9 @@ export default function FilePreview() {
                 </svg>
               </button>
             </div>
-            {/* <DocViewer
-              documents={docs}
-              pluginRenderers={DocViewerRenderers}
-              style={{ height: "642px" }}
-            /> */}
+            <div className="pdf-viewer">
+              {filePath && <PdfViewer pdfFilePath={filePath} />}
+            </div>
           </div>
         </div>
       </div>

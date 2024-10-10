@@ -80,6 +80,7 @@
   height: 100%;
   overflow-y: scroll;
 }
+
 .table-responsive {
   position: relative;
   display: block;
@@ -89,6 +90,7 @@
 .preview-file {
   width: 50%;
 }
+
 .section-header-title {
   color: #1c304c;
   font-size: 24px;
@@ -126,14 +128,17 @@
   padding: 0px !important;
   font-weight: 600 !important;
 }
+
 .rdt_TableCol {
   border: 1px solid #e2e5e8;
 }
+
 .validation {
   width: 100%;
   display: flex;
   justify-content: center;
 }
+
 .rdt_TableCell {
   border: 1px solid #e2e5e8;
 }
@@ -153,6 +158,7 @@
   font-size: 16px;
   font-weight: 600;
 }
+
 .warning-navbar {
   background-color: #f3e828;
   margin-top: 20px;
@@ -160,8 +166,35 @@
   font-size: 16px;
   font-weight: 600;
 }
-.limits-ul{
+
+.limits-ul {
   margin: 0rem !important;
-  padding-left: 1rem !important; 
+  padding-left: 1rem !important;
   height: 25px !important;
+}
+
+.pdf-viewer {
+  padding: 20px;
+}
+
+.react-pdf__Page__annotations,
+.annotationLayer,
+.react-pdf__Page__textContent {
+  display: none !important;
+}
+
+.prev-next-section {
+  display: flex;
+  align-items: center;
+}
+
+.align-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-pdf__Document {
+  display: flex !important;
+  justify-content: center !important;
 }
