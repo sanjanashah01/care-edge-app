@@ -35,9 +35,7 @@ export default function FilePreview() {
           setCombinedData(combinedData);
           setFileName(fileDetailsResponse.data.filename);
           setProcessingTime(fileDetailsResponse.data.pt);
-          // setFilePath(fileDetailsResponse.data.path);
-          setFilePath("http://localhost:4200/Mankind_Pharma_Limited_Press_Release.docx_09-10-2024_15_44_16.docx_2024-10-09 15_44_26.592985.pdf")
-
+          setFilePath(fileDetailsResponse.data.path);
         } else {
           const response = await axios.get(
             `${process.env.REACT_APP_BASE_URL}/files`,
@@ -58,9 +56,7 @@ export default function FilePreview() {
           setCombinedData(combinedData);
           setFileName(response.data[0].filename);
           setProcessingTime(response.data[0].pt);
-          // setFilePath(response.data[0].path);
-
-          setFilePath("http://localhost:4200/Mankind_Pharma_Limited_Press_Release.docx_09-10-2024_15_44_16.docx_2024-10-09 15_44_26.592985.pdf")
+          setFilePath(response.data[0].path);
         }
       } catch (error) {
         console.error("Error fetching latest file:", error);
