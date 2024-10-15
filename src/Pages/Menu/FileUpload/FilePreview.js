@@ -35,7 +35,13 @@ export default function FilePreview() {
           setCombinedData(combinedData);
           setFileName(fileDetailsResponse.data.filename);
           setProcessingTime(fileDetailsResponse.data.pt);
-          setFilePath(fileDetailsResponse.data.path);
+          let apiPath = fileDetailsResponse.data.path;
+          let pdfFilePath = apiPath.replace(
+            '/home/pruat/PRCheckTool/care-edge-app/care-edge-api/public/',
+            'http://10.10.26.50:4200/'
+          );
+
+          setFilePath(pdfFilePath);
         } else {
           const response = await axios.get(
             `${process.env.REACT_APP_BASE_URL}/files`,
@@ -56,7 +62,13 @@ export default function FilePreview() {
           setCombinedData(combinedData);
           setFileName(response.data[0].filename);
           setProcessingTime(response.data[0].pt);
-          setFilePath(response.data[0].path);
+          let apiPath = response.data[0].path;
+          let pdfFilePath = apiPath.replace(
+            '/home/pruat/PRCheckTool/care-edge-app/care-edge-api/public/',
+            'http://10.10.26.50:4200/'
+          );
+
+          setFilePath(pdfFilePath);
         }
       } catch (error) {
         console.error("Error fetching latest file:", error);
